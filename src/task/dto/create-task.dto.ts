@@ -7,7 +7,7 @@ export class CreateTaskDto {
     title:string;
 
     @IsString()
-    description:string;
+    description:string = "";
 
     @IsBoolean()
     isFinished:boolean = false;
