@@ -1,7 +1,8 @@
-import { Module } from '@nestjs/common';
+import { MiddlewareConsumer, Module, NestModule,} from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { CorsMiddlewareMiddleware } from './middleware/cors-middleware/cors-middleware.middleware';
 import { TaskModule } from './task/task.module';
 
 @Module({
@@ -14,8 +15,15 @@ import { TaskModule } from './task/task.module';
     password:'',
     synchronize:true,
     autoLoadEntities:true
-  })],
+  })
+],
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule {}
+export class AppModule implements NestModule{
+
+  configure(consumer: MiddlewareConsumer) {
+    
+    consumer.apply(CorsMiddlewareMiddleware).forRoutes('*');
+  }
+}
