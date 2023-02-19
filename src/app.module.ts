@@ -7,11 +7,11 @@ import { TaskModule } from './task/task.module';
 @Module({
   imports: [TaskModule, TypeOrmModule.forRoot({
     type:'mysql',
-    host:'localhost',
+    host:'taskdb_container',
     port:3306,
     database:'task',
     username:'root',
-    password:'root',
+    password:'',
     synchronize:true,
     autoLoadEntities:true
   })],
